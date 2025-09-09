@@ -10,47 +10,51 @@ use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
-    public function register(){
+    public function register()
+    {
         return view('front.account.registration');
     }
 
-    public function proccessRegistration(Request $request) {
-        $validator = Validator::make($request->all(),[
+    public function proccessRegistration(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|same:confirm_password',
-            'confirm_password' => 'required'
+            'confirm_password' => 'required',
         ]);
 
-        if ($validator->fails()) {  
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ]);
         }
 
-        $user = new User();
+        $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
 
-        session()->flash('success','You have registered successfully.');
+        session()->flash('success', 'You have registered successfully.');
 
         return response()->json([
             'status' => true,
-            'errors' => []
+            'errors' => [],
         ]);
     }
 
-    public function login(){
+    public function login()
+    {
         return view('front.account.login');
     }
 
-    public function authenticate(Request $request) {
-        $validator = Validator::make($request->all(),[
+    public function authenticate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -67,12 +71,15 @@ class AccountController extends Controller
         }
     }
 
-    public function profile() {
+    public function profile()
+    {
         return view('front.account.profile');
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
+
         return redirect()->route('account.login');
     }
 }
