@@ -23,20 +23,20 @@
                         <h3 class="fs-4 mb-1">My Profile</h3>
                         <div class="mb-4">
                             <label for="" class="mb-2">Name*</label>
-                            <input type="text" placeholder="Enter Name" class="form-control" value="">
+                            <input type="text" name="name" placeholder="Enter Name" class="form-control" value="">
                         </div>
                         <div class="mb-4">
                             <label for="" class="mb-2">Email*</label>
-                            <input type="text" placeholder="Enter Email" class="form-control">
+                            <input type="text" name="email" placeholder="Enter Email" class="form-control">
                         </div>
                         <div class="mb-4">
                             <label for="" class="mb-2">Designation*</label>
-                            <input type="text" placeholder="Designation" class="form-control">
+                            <input type="text" name="designation" placeholder="Designation" class="form-control">
                         </div>
                         <div class="mb-4">
                             <label for="" class="mb-2">Mobile*</label>
-                            <input type="text" placeholder="Mobile" class="form-control">
-                        </div>                        
+                            <input type="text" name="mobile" placeholder="Mobile" class="form-control">
+                        </div>
                     </div>
                     <div class="card-footer  p-4">
                         <button type="button" class="btn btn-primary">Update</button>
@@ -48,21 +48,21 @@
                         <h3 class="fs-4 mb-1">Change Password</h3>
                         <div class="mb-4">
                             <label for="" class="mb-2">Old Password*</label>
-                            <input type="password" placeholder="Old Password" class="form-control">
+                            <input type="password" name="old_password" placeholder="Old Password" class="form-control">
                         </div>
                         <div class="mb-4">
                             <label for="" class="mb-2">New Password*</label>
-                            <input type="password" placeholder="New Password" class="form-control">
+                            <input type="password" name="new_password" placeholder="New Password" class="form-control">
                         </div>
                         <div class="mb-4">
                             <label for="" class="mb-2">Confirm Password*</label>
-                            <input type="password" placeholder="Confirm Password" class="form-control">
-                        </div>                        
+                            <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control">
+                        </div>
                     </div>
                     <div class="card-footer  p-4">
                         <button type="button" class="btn btn-primary">Update</button>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
     </div>

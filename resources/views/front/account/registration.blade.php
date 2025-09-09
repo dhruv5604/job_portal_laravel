@@ -47,7 +47,7 @@
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "{{ route('account.proccessRegistration') }}",
+            url: "{{ route('account.processRegistration') }}",
             data: $('#registrationForm').serializeArray(),
             dataType: "json",
             success: function(response) {
@@ -77,7 +77,6 @@
                         $('#confirm_password').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                     }
                 } else {
-                    console.log();
                     $('#name').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                     $('#email').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                     $('#password').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');

@@ -15,7 +15,7 @@ class AccountController extends Controller
         return view('front.account.registration');
     }
 
-    public function proccessRegistration(Request $request)
+    public function processRegistration(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',

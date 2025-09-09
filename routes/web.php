@@ -8,7 +8,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/account/register', [AccountController::class, 'register'])->name('account.register');
-    Route::post('/account/process-register', [AccountController::class, 'proccessRegistration'])->name('account.proccessRegistration');
+    Route::post('/account/process-register', [AccountController::class, 'processRegistration'])->name('account.processRegistration');
     Route::get('/account/login', [AccountController::class, 'login'])->name('account.login');
     Route::post('/account/authenticate', [AccountController::class, 'authenticate'])->name('account.authenticate');
 });
