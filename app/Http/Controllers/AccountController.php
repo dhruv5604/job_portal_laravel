@@ -8,8 +8,8 @@ use App\Http\Requests\UpdateProfilePicRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -39,50 +39,40 @@ class AccountController extends Controller
 
     public function profile()
     {
-        $id = Auth::user()->id;
-
-        $user = User::find($id);
+        $user = Auth::user();
 
         return view('front.account.profile', compact('user'));
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
+    public function updateProfile(UpdateProfileRequest $request, User $user)
     {
-        $id = Auth::user()->id;
-
-        User::where('id', $id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'designation' => $request->designation,
-            'mobile' => $request->mobile,
-        ]);
+        $user->update($request->only(['name', 'email', 'designation', 'mobile']));
 
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
-    public function updateProfilePic(UpdateProfilePicRequest $request)
+    public function updateProfilePic(UpdateProfilePicRequest $request, User $user)
     {
-        $id = Auth::user()->id;
-
         $image = $request->image;
         $ext = $image->getClientOriginalExtension();
 
-        $imageName = $id.'-'.time().'.'.$ext;
-        $image->move(public_path('/profile_pic/'), $imageName);
+        $imageName = $user->id.'-'.time().'.'.$ext;
 
         // create a small thumbnail
-        $sourcePath = public_path('/profile_pic/'.$imageName);
+        $path = $image->storeAs('profile_pic', $imageName, 'public');
         $manager = new ImageManager(Driver::class);
-        $image = $manager->read($sourcePath);
-
-        $image->cover(150, 150);
-        $image->toPng()->save(public_path('/profile_pic/thumb/'.$imageName));
+        $thumbnail = $manager->read($image->getRealPath())->cover(150, 150);
+        $thumbPath = "profile_pic/thumb/{$imageName}";
+        Storage::disk('public')->put($thumbPath, (string) $thumbnail->toPng());
 
         // delete old Profile pic
-        File::delete(public_path('/profile_pic/'.Auth::user()->image));
-        File::delete(public_path('/profile_pic/thumb/'.Auth::user()->image));
+        if ($user->image) {
+            Storage::disk('public')->delete("profile_pic/{$user->image}");
+            Storage::disk('public')->delete("profile_pic/thumb/{$user->image}");
+        }
 
-        User::where('id', $id)->update([
+        // Update user
+        $user->update([
             'image' => $imageName,
         ]);
 

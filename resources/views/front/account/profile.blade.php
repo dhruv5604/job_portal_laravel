@@ -26,7 +26,7 @@
                 @endif
 
                 <div class="card border-0 shadow mb-4">
-                    <form action="{{ route('account.updateProfile') }}" method="post" id="userForm" name="userForm">
+                    <form action="{{ route('account.updateProfile', Auth::user()) }}" method="post" id="userForm" name="userForm">
                         @csrf
                         <div class="card-body  p-4">
                             <h3 class="fs-4 mb-1">My Profile</h3>

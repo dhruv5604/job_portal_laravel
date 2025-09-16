@@ -17,6 +17,6 @@ Route::middleware('guest')->prefix('account')->name('account.')->group(function 
 Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
     Route::get('/profile', [AccountController::class, 'profile'])->name('profile');
     Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
-    Route::post('/update-profile', [AccountController::class, 'updateProfile'])->name('updateProfile');
-    Route::post('/update-profile-pic', [AccountController::class, 'updateProfilePic'])->name('updateProfilePic');
+    Route::post('/update-profile/{user}', [AccountController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/update-profile-pic/{user}', [AccountController::class, 'updateProfilePic'])->name('updateProfilePic');
 });

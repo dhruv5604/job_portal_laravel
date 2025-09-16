@@ -22,7 +22,7 @@ class UpdateProfilePicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image',
+            'image' => 'required|image|max:2048',
         ];
     }
 
@@ -31,6 +31,7 @@ class UpdateProfilePicRequest extends FormRequest
         return [
             'image.required' => 'Image field is required',
             'image.image' => 'Please upload an image',
+            'image.max' => 'Please upload an image with size less than 2MB.',
         ];
     }
 }
