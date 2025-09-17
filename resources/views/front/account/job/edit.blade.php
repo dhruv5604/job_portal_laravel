@@ -18,8 +18,9 @@
                 @include('front.account.sidebar')
             </div>
             <div class="col-lg-9">
-                <form action="{{ route('account.updateJob', $job) }}" method="post" id="editJobForm" name="editJobForm">
+                <form action="{{ route('account.jobs.update', $job) }}" method="post" id="editJobForm" name="editJobForm">
                     @csrf
+                    @method('PUT')
                     <div class="card border-0 shadow mb-4 ">
                         <div class="card-body card-form p-4">
                             <h3 class="fs-4 mb-1">Edit Job Details</h3>

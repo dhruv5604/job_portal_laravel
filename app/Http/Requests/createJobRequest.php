@@ -29,8 +29,14 @@ class createJobRequest extends FormRequest
             'salary' => 'required|integer',
             'location' => 'required|max:50',
             'description' => 'required',
+            'benefits' => 'max:100',
+            'responsibility' => 'max:100',
+            'qualifications' => 'max:100',
             'experience' => 'required',
+            'keywords' => 'max:200',
             'company_name' => 'required|min:3|max:50',
+            'company_location' => 'required|max:50',
+            'company_website' => 'required',
         ];
     }
 }

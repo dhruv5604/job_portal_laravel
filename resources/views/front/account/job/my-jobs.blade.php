@@ -30,7 +30,7 @@
                                 <h3 class="fs-4 mb-1">My Jobs</h3>
                             </div>
                             <div style="margin-top: -10px;">
-                                <a href="{{ route('account.createJob') }}" class="btn btn-primary">Post a Job</a>
+                                <a href="{{ route('account.jobs.create') }}" class="btn btn-primary">Post a Job</a>
                             </div>
 
                         </div>
@@ -56,11 +56,7 @@
                                         <td>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</td>
                                         <td>0 Applications</td> <!-- TODO: Update this later -->
                                         <td>
-                                            @if ($job->status == 1)
-                                            <div class="job-status text-capitalize">active</div>
-                                            @else
-                                            <div class="job-status text-capitalize">inactive</div>
-                                            @endif
+                                            <div class="job-status text-capitalize">{{ $job->status == 1 ? 'active' : 'inactive' }}</div>
                                         </td>
                                         <td>
                                             <div class="action-dots float-end">
@@ -69,8 +65,17 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li><a class="dropdown-item" href="job-detail.html"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
-                                                    <li><a class="dropdown-item" href="{{ route('account.editJob', $job) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#" onclick="deleteJob({{ $job }})"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('account.jobs.edit', $job) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
+                                                    <li>
+                                                        <form action="{{ route('account.jobs.destroy', $job) }}" method="post" style="display:inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i> Remove
+                                                            </button>
+                                                        </form>
+                                                    </li>
+
                                                 </ul>
                                             </div>
                                         </td>
@@ -87,16 +92,4 @@
         </div>
     </div>
 </section>
-@endsection
-
-@section('customJs')
-<script>
-    function deleteJob(job) {
-        if (confirm("Are you sure you want to delete this job?")) {
-            let url = "{{ route('account.deleteJob', '__id__') }}";
-            url = url.replace('__id__', job['id']);
-            window.location.href = url;
-        }
-    }
-</script>
 @endsection

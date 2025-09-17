@@ -23,9 +23,5 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Category::factory(5)->create();
-        // JobType::factory(5)->create();
-
-        Job::factory(22)->create();
     }
 }

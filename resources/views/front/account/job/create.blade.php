@@ -18,7 +18,7 @@
                 @include('front.account.sidebar')
             </div>
             <div class="col-lg-9">
-                <form action="{{ route('account.saveJob') }}" method="post" id="createJobForm" name="createJobForm">
+                <form action="{{ route('account.jobs.store') }}" method="post" id="createJobForm" name="createJobForm">
                     @csrf
                     <div class="card border-0 shadow mb-4 ">
                         <div class="card-body card-form p-4">
@@ -94,15 +94,24 @@
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Benefits</label>
-                                <textarea class="form-control" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits"></textarea>
+                                <textarea class="form-control @error('benefits') is-invalid @enderror" name="benefits" id="benefits" cols="5" rows="5" placeholder="Benefits"></textarea>
+                                @error('benefits')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Responsibility</label>
-                                <textarea class="form-control" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility"></textarea>
+                                <textarea class="form-control @error('responsibility') is-invalid @enderror" name="responsibility" id="responsibility" cols="5" rows="5" placeholder="Responsibility"></textarea>
+                                @error('responsibility')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Qualifications</label>
-                                <textarea class="form-control" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications"></textarea>
+                                <textarea class="form-control @error('qualifications') is-invalid @enderror" name="qualifications" id="qualifications" cols="5" rows="5" placeholder="Qualifications"></textarea>
+                                @error('qualifications')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Experience<span class="req">*</span></label>
@@ -110,9 +119,9 @@
                                     <option value="">Select an Experience</option>
                                     <option value="1">1 Year</option>
                                     @for ($i=2; $i<10; $i++)
-                                    <option value="{{ $i }}">{{ $i }} Years</option>
-                                    @endfor
-                                    <option value="10_plus">10+ Years</option>
+                                        <option value="{{ $i }}">{{ $i }} Years</option>
+                                        @endfor
+                                        <option value="10_plus">10+ Years</option>
                                 </select>
                                 @error('experience')
                                 <p class="invalid-feedback">{{ $message }}</p>
@@ -120,7 +129,10 @@
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Keywords</label>
-                                <input type="text" placeholder="keywords" id="keywords" name="keywords" class="form-control">
+                                <input type="text" placeholder="keywords" id="keywords" name="keywords" class="form-control @error('keywords') is-invalid @enderror">
+                                @error('keywords')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
                             </div>
                             <h3 class="fs-4 mb-1 mt-5 border-top pt-5">Company Details</h3>
                             <div class="row">
@@ -133,12 +145,18 @@
                                 </div>
                                 <div class="mb-4 col-md-6">
                                     <label for="" class="mb-2">Location</label>
-                                    <input type="text" placeholder="Location" id="company_location" name="company_location" class="form-control">
+                                    <input type="text" placeholder="Location" id="company_location" name="company_location" class="form-control @error('company_location') is-invalid @enderror">
+                                    @error('company_location')
+                                    <p class="invalid-feedback">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Website</label>
-                                <input type="text" placeholder="Website" id="company_website" name="company_website" class="form-control">
+                                <input type="text" placeholder="Website" id="company_website" name="company_website" class="form-control @error('company_website') is-invalid @enderror">
+                                @error('company_website')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                         <div class="card-footer  p-4">
