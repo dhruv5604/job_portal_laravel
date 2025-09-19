@@ -18,5 +18,7 @@ Route::middleware('guest')->prefix('account')->name('account.')->group(function 
 Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
     Route::view('/profile', 'front.account.profile')->name('profile');
     Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
-    Route::resource('jobs', JobController::class);
+    Route::resource('jobs', JobController::class)->except([
+        'show'
+    ]);
 });
