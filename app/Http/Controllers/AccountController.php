@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\createJobRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Category;
+use App\Models\Job;
+use App\Models\JobType;
 use App\Http\Requests\UpdateProfilePicRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
