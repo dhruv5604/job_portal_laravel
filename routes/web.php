@@ -16,9 +16,11 @@ Route::middleware('guest')->prefix('account')->name('account.')->group(function 
 
 // Authenticated user routes
 Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
-    Route::view('/profile', 'front.account.profile')->name('profile');
+    Route::get('/profile', [AccountController::class, 'profile'])->name('profile');
     Route::get('/logout', [AccountController::class, 'logout'])->name('logout');
     Route::resource('jobs', JobController::class)->except([
         'show'
     ]);
+    Route::post('/update-profile/{user}', [AccountController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/update-profile-pic/{user}', [AccountController::class, 'updateProfilePic'])->name('updateProfilePic');
 });

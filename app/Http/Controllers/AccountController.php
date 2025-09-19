@@ -8,9 +8,14 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobType;
+use App\Http\Requests\UpdateProfilePicRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class AccountController extends Controller
 {
@@ -34,6 +39,48 @@ class AccountController extends Controller
 
         return redirect()->back()
             ->with('error', 'Invalid credentials. Please try again.');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('front.account.profile', compact('user'));
+    }
+
+    public function updateProfile(UpdateProfileRequest $request, User $user)
+    {
+        $user->update($request->only(['name', 'email', 'designation', 'mobile']));
+
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
+
+    public function updateProfilePic(UpdateProfilePicRequest $request, User $user)
+    {
+        $image = $request->image;
+        $ext = $image->getClientOriginalExtension();
+
+        $imageName = $user->id.'-'.time().'.'.$ext;
+
+        // create a small thumbnail
+        $path = $image->storeAs('profile_pic', $imageName, 'public');
+        $manager = new ImageManager(Driver::class);
+        $thumbnail = $manager->read($image->getRealPath())->cover(150, 150);
+        $thumbPath = "profile_pic/thumb/{$imageName}";
+        Storage::disk('public')->put($thumbPath, (string) $thumbnail->toPng());
+
+        // delete old Profile pic
+        if ($user->image) {
+            Storage::disk('public')->delete("profile_pic/{$user->image}");
+            Storage::disk('public')->delete("profile_pic/thumb/{$user->image}");
+        }
+
+        // Update user
+        $user->update([
+            'image' => $imageName,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile picture updated successfully.');
     }
 
     public function logout()
