@@ -145,7 +145,7 @@ class JobController extends Controller
             $jobs = $jobs->where('experience', $request->experience);
         }
 
-        $jobs = $jobs->with('JobType')->latest()->paginate(9);
+        $jobs = $jobs->with('jobType')->latest()->paginate(9);
 
         return view('front.jobs', compact('categories', 'jobTypes', 'jobs'));
     }
