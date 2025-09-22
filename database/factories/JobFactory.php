@@ -28,7 +28,7 @@ class JobFactory extends Factory
             'company_location' => fake()->city,
             'company_website' => fake()->url,
             'vacancy' => fake()->numberBetween(1, 10),
-            'user_id' => 1
+            'user_id' => 1,
         ];
     }
 }

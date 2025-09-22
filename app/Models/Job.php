@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
+
     protected $table = 'job_posts';
-   
+
     protected $fillable = [
         'title',
         'category_id',

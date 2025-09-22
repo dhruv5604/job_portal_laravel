@@ -9424,20 +9424,20 @@ header .navbar-brand {
   background: #00D363;
   color: #fff;
 }
-.section-4 .job_details_area .job_sumary .summery_header {
+.section-4 .job_details_area .job_summary .summary_header {
   border-bottom: 1px solid #EAEAEA;
   padding: 40px;
 }
-.section-4 .job_details_area .job_sumary .summery_header h3 {
+.section-4 .job_details_area .job_summary .summary_header h3 {
   font-size: 24px;
   color: #001D38;
   font-weight: 400;
   text-transform: none;
 }
-.section-4 .job_details_area .job_sumary .job_content {
+.section-4 .job_details_area .job_summary .job_content {
   padding: 40px;
 }
-.section-4 .job_details_area .job_sumary .job_content ul li {
+.section-4 .job_details_area .job_summary .job_content ul li {
   font-size: 16px;
   font-weight: 400;
   color: #AAB1B7;
@@ -9445,7 +9445,7 @@ header .navbar-brand {
   padding-left: 18px;
   position: relative;
 }
-.section-4 .job_details_area .job_sumary .job_content ul li::before {
+.section-4 .job_details_area .job_summary .job_content ul li::before {
   position: absolute;
   width: 8px;
   height: 8px;
@@ -9457,7 +9457,7 @@ header .navbar-brand {
   content: '';
   top: 16px;
 }
-.section-4 .job_details_area .job_sumary .job_content ul li span {
+.section-4 .job_details_area .job_summary .job_content ul li span {
   color: #001D38;
   font-size: 16px;
 }
