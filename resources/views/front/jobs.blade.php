@@ -26,7 +26,7 @@
                                 <option value="">Select a Category</option>
                                 @if ($categories->isNotEmpty())
                                 @foreach ($categories as $category)
-                                <option {{ (Request::get('category') == $category->id) ? 'selected' : '' }} value="{{$category->id}}">{{$category->name}}</option>
+                                <option @selected(Request::get('category') == $category->id) value="{{$category->id}}">{{$category->name}}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -36,7 +36,7 @@
                             @if ($jobTypes->isNotEmpty())
                             @foreach ($jobTypes as $jobType)
                             <div class="form-check mb-2">
-                                <input class="form-check-input " name="job_type[]" type="checkbox" value="{{ $jobType->id }}" id="job-type-{{ $jobType->id }}" {{ in_array($jobType->id, (array) Request::get('job_type', [])) ? 'checked' : '' }}>
+                                <input class="form-check-input " name="job_type[]" type="checkbox" value="{{ $jobType->id }}" id="job-type-{{ $jobType->id }}" @checked(in_array($jobType->id, (array) Request::get('job_type', [])))>
                                 <label class="form-check-label " for="job-type-{{ $jobType->id }}">{{ $jobType->name }}</label>
                             </div>
                             @endforeach

@@ -119,36 +119,46 @@ class JobController extends Controller
     public function jobs(Request $request)
     {
         $categories = Category::where('status', 1)->get();
-        $jobTypes = JobType::where('status', 1)->get();
-        $jobs = Job::where('status', 1);
+        $jobTypes   = JobType::where('status', 1)->get();
 
-        if (! empty($request->keyword)) {
-            $jobs = $jobs->where(function ($query) use ($request) {
-                $query->where('title', 'like', '%'.$request->keyword.'%')
-                    ->orWhere('keywords', 'like', '%'.$request->keyword.'%');
-            });
-        }
+        $jobs = Job::query()
+            ->where('status', 1)
 
-        if (! empty($request->location)) {
-            $jobs = $jobs->where('location', $request->location);
-        }
+            ->when($request->filled('keyword'), function ($query) use ($request) {
+                $query->whereAny(
+                    ['title', 'keywords'],
+                    'like',
+                    '%' . $request->keyword . '%'
+                );
+            })
+            ->when(
+                $request->filled('location'),
+                fn($q) =>
+                $q->where('location', $request->location)
+            )
+            ->when(
+                $request->filled('category'),
+                fn($q) =>
+                $q->where('category_id', $request->category)
+            )
+            ->when(
+                $request->filled('job_type'),
+                fn($q) =>
+                $q->whereIn('job_type_id', $request->job_type)
+            )
+            ->when(
+                $request->filled('experience'),
+                fn($q) =>
+                $q->where('experience', $request->experience)
+            )
 
-        if (! empty($request->category)) {
-            $jobs = $jobs->where('category_id', $request->category);
-        }
-
-        if (! empty($request->job_type)) {
-            $jobs = $jobs->whereIn('job_type_id', $request->job_type);
-        }
-
-        if (! empty($request->experience)) {
-            $jobs = $jobs->where('experience', $request->experience);
-        }
-
-        $jobs = $jobs->with('jobType')->latest()->paginate(9);
+            ->with('jobType')
+            ->latest()
+            ->paginate(9);
 
         return view('front.jobs', compact('categories', 'jobTypes', 'jobs'));
     }
+
 
     public function jobDetails(Job $job)
     {
