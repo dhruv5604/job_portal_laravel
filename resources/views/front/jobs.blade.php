@@ -46,12 +46,12 @@
                             <h2>Experience</h2>
                             <select name="experience" id="experience" class="form-control">
                                 <option value="">Select an Experience</option>
-                                <option value="1" {{ Request::get('experience') == 1 ? 'selected' : '' }}>1 Year</option>
+                                <option value="1" @selected(Request::get('experience') == 1)>1 Year</option>
                                 @for ($i=2; $i<10; $i++)
-                                    <option value="{{ $i }}" {{ Request::get('experience') == $i ? 'selected' : '' }}>{{ $i }} Years</option>
+                                    <option value="{{ $i }}" @selected(Request::get('experience') == $i)>{{ $i }} Years</option>
                                 @endfor
-                                <option value="10_plus" {{ Request::get('experience') == '10_plus' ? 'selected' : '' }}>10+ Years</option>
-                            </select>
+                                <option value="10_plus" @selected(Request::get('experience') == '10_plus')>10+ Years</option>
+                            </select>   
                         </div>
                         <button type="submit" class="btn btn-primary">Search</button>
                         <a href="{{ route('jobs') }}" class="btn btn-secondary mt-3">Reset</a>
