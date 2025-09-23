@@ -12,15 +12,10 @@ class JobNotificationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($mailData)
-    {
-        $this->mailData = $mailData;
-    }
+    public function __construct(public readonly array $mailData) {}
 
     /**
      * Get the message envelope.
