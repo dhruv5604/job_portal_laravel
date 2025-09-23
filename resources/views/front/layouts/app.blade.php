@@ -42,11 +42,6 @@
 	</nav>
 </header>
 
-@if (Session::has('error'))
-	<div class="alert alert-danger">
-		<p class="mb-0 pb-0">{{ Session::get('error') }}</p>
-    </div>
-@endif
 @yield('main')
 
 <footer class="bg-dark py-3 bg-2">
