@@ -158,7 +158,6 @@ class JobController extends Controller
 
     public function jobDetails(Job $job)
     {
-        abort_unless($job->status == 1, 404);
         $job->load(['jobType', 'category']);
 
         return view('front.job-details', compact('job'));
@@ -166,8 +165,6 @@ class JobController extends Controller
 
     public function applyJob(Job $job)
     {
-        abort_unless($job->status == 1, 404);
-
         $employer_id = $job->user_id;
 
         if ($employer_id == Auth::id()) {
