@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\createJobRequest;
 use App\Models\Category;
 use App\Models\Job;
+use App\Models\JobApplication;
 use App\Models\JobType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,7 +120,7 @@ class JobController extends Controller
     public function jobs(Request $request)
     {
         $categories = Category::where('status', 1)->get();
-        $jobTypes   = JobType::where('status', 1)->get();
+        $jobTypes = JobType::where('status', 1)->get();
 
         $jobs = Job::query()
             ->where('status', 1)
@@ -128,28 +129,24 @@ class JobController extends Controller
                 $query->whereAny(
                     ['title', 'keywords'],
                     'like',
-                    '%' . $request->keyword . '%'
+                    '%'.$request->keyword.'%'
                 );
             })
             ->when(
                 $request->filled('location'),
-                fn($q) =>
-                $q->where('location', $request->location)
+                fn ($q) => $q->where('location', $request->location)
             )
             ->when(
                 $request->filled('category'),
-                fn($q) =>
-                $q->where('category_id', $request->category)
+                fn ($q) => $q->where('category_id', $request->category)
             )
             ->when(
                 $request->filled('job_type'),
-                fn($q) =>
-                $q->whereIn('job_type_id', $request->job_type)
+                fn ($q) => $q->whereIn('job_type_id', $request->job_type)
             )
             ->when(
                 $request->filled('experience'),
-                fn($q) =>
-                $q->where('experience', $request->experience)
+                fn ($q) => $q->where('experience', $request->experience)
             )
 
             ->with('jobType')
@@ -159,13 +156,41 @@ class JobController extends Controller
         return view('front.jobs', compact('categories', 'jobTypes', 'jobs'));
     }
 
-
     public function jobDetails(Job $job)
     {
         abort_unless($job->status == 1, 404);
         $job->load(['jobType', 'category']);
 
         return view('front.job-details', compact('job'));
+    }
+
+    public function applyJob(Job $job)
+    {
+        abort_unless($job->status == 1, 404);
+
+        $employer_id = $job->user_id;
+
+        if ($employer_id == Auth::id()) {
+            return back()->with('error', 'You cannot apply to your own job.');
+        }
+
+        $alreadyApplied = JobApplication::where([
+            'job_id' => $job->id,
+            'user_id' => Auth::id(),
+        ])->exists();
+
+        if ($alreadyApplied) {
+            return redirect()->back()->with('error', 'You have already applied to this job.');
+        }
+
+        JobApplication::create([
+            'job_id' => $job->id,
+            'user_id' => Auth::id(),
+            'employer_id' => $employer_id,
+            'applied_date' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Job applied successfully.');
     }
 
     private function authorizeOwner(Job $job)

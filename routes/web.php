@@ -26,4 +26,5 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
     ]);
     Route::post('/update-profile/{user}', [AccountController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/update-profile-pic/{user}', [AccountController::class, 'updateProfilePic'])->name('updateProfilePic');
+    Route::post('/apply-job/{job}', [JobController::class, 'applyJob'])->name('applyJob');
 });

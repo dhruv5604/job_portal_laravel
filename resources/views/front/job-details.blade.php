@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('main')
-<section class="section-4 bg-2">    
+<section class="section-4 bg-2">
     <div class="container pt-5">
         <div class="row">
             <div class="col">
@@ -11,16 +11,26 @@
                     </ol>
                 </nav>
             </div>
-        </div> 
+        </div>
     </div>
     <div class="container job_details_area">
+
+        @if (Session::has('success'))
+        <div class="alert alert-success">
+            <p class="mb-0 pb-0">{{ Session::get('success') }}</p>
+        </div>
+        @endif
+        @if (Session::has('error'))
+        <div class="alert alert-danger">
+            <p class="mb-0 pb-0">{{ Session::get('error') }}</p>
+        </div>
+        @endif
         <div class="row pb-5">
             <div class="col-md-8">
                 <div class="card shadow border-0">
                     <div class="job_details_header">
                         <div class="single_jobs white-bg d-flex justify-content-between">
                             <div class="jobs_left d-flex align-items-center">
-                                
                                 <div class="jobs_conetent">
                                     <a href="#">
                                         <h4>{{ $job->title }}</h4>
@@ -62,7 +72,13 @@
                         <div class="border-bottom"></div>
                         <div class="pt-3 text-end">
                             <a href="#" class="btn btn-secondary">Save</a>
-                            <a href="#" class="btn btn-primary">Apply</a>
+                            <form action="{{ route('account.applyJob', $job) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-primary"
+                                    onclick="this.disabled=true;this.form.submit();">
+                                    Apply
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -92,8 +108,8 @@
                         <div class="job_content pt-3">
                             <ul>
                                 <li>Name: <span>{{ $job->company_name }}</span></li>
-                                <li>Locaion: <span>{{ $job->company_location }}</span></li>
-                                <li>Webite: <span><a href="{{ $job->company_website }}" target="_blank">{{ $job->company_website }}</a></span></li>
+                                <li>Location: <span>{{ $job->company_location }}</span></li>
+                                <li>Website: <span><a href="{{ $job->company_website }}" target="_blank">{{ $job->company_website }}</a></span></li>
                             </ul>
                         </div>
                     </div>
