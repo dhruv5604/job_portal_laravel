@@ -28,4 +28,6 @@ Route::middleware('auth')->prefix('account')->name('account.')->group(function (
     Route::post('/update-profile/{user}', [AccountController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/update-profile-pic/{user}', [AccountController::class, 'updateProfilePic'])->name('updateProfilePic');
     Route::post('/apply-job/{job}', [JobController::class, 'applyJob'])->name('applyJob')->middleware(EnsureJobIsActive::class);
+    Route::get('/my-job-applications', [JobController::class, 'myJobApplications'])->name('myJobApplications');
+    Route::delete('/remove-applied-job/{jobApplication}', [JobController::class, 'removeAppliedJob'])->name('removeAppliedJob');
 });

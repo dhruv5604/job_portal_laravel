@@ -190,6 +190,21 @@ class JobController extends Controller
         return redirect()->back()->with('success', 'Job applied successfully.');
     }
 
+    public function myJobApplications()
+    {
+        $jobApplications = JobApplication::where('user_id', Auth::id())->with('job', 'job.jobType', 'job.applications')->paginate(10);
+
+        return view('front.account.job.my-job-applications', compact('jobApplications'));
+    }
+
+    public function removeAppliedJob(JobApplication $jobApplication)
+    {
+        abort_if($jobApplication->user_id !== Auth::id(), 403);
+        $jobApplication->delete();
+
+        return redirect()->back()->with('success', 'Job removed successfully.');
+    }
+
     private function authorizeOwner(Job $job)
     {
         abort_unless($job->user_id === Auth::id(), 403);

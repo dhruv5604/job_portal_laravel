@@ -16,7 +16,7 @@ class EnsureJobIsActive
     {
         $job = $request->route('job');
 
-        abort_if(!$job || $job->status !== 1, 404);
+        abort_if(! $job || $job->status !== 1, 404);
 
         return $next($request);
     }
