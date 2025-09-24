@@ -82,6 +82,42 @@
                         </div>
                     </div>
                 </div>
+
+                @if ($job->user_id == Auth::id())
+                <div class="card shadow border-0 mt-4">
+                    <div class="job_details_header">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                            <div class="jobs_left d-flex align-items-center">
+                                <div class="jobs_conetent">
+                                    <a href="#">
+                                        <h4>Applicants</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="jobs_right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="descript_wrap white-bg">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Applied Date</th>
+                            </tr>
+                            @if ($applications->isNotEmpty())
+                            @foreach ($applications as $application)
+                            <tr>
+                                <td>{{ $application->user->name }}</td>
+                                <td>{{ $application->user->email }}</td>
+                                <td>{{ $application->created_at->format('d M Y') }}</td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </table>
+                    </div>
+                </div>
+                @endif
             </div>
             <div class="col-md-4">
                 <div class="card shadow border-0">
