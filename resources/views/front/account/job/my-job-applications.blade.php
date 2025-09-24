@@ -45,16 +45,15 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody class="border-0">
-                                    @if ($jobApplications->isNotEmpty())
-                                    @foreach ($jobApplications as $jobApplication)
+                                <tbody class="border-0">                
+                                    @forelse ($jobApplications as $jobApplication)
                                     <tr class="active">
                                         <td>
                                             <div class="job-name fw-500">{{ $jobApplication->job->title }}</div>
                                             <div class="info1">{{ $jobApplication->job->jobType->name }} . {{ $jobApplication->job->location }}</div>
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($jobApplication->created_at)->format('d M, Y') }}</td>
-                                        <td>{{ $jobApplication->job->applications->count() }} Applications</td> <!-- TODO: Update this later -->
+                                        <td>{{ $jobApplication->job->applications_count }} Applications</td> <!-- TODO: Update this later -->
                                         <td>
                                             <div class="job-status text-capitalize">{{ $jobApplication->job->status == 1 ? 'active' : 'inactive' }}</div>
                                         </td>
@@ -66,7 +65,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li><a class="dropdown-item" href="{{ route('jobDetails', $jobApplication->job) }}"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
                                                     <li>
-                                                        <form action="{{ route('account.removeAppliedJob', $jobApplication) }}" method="post" style="display:inline;">
+                                                        <form action="{{ route('account.job-applications.destroy', $jobApplication) }}" method="post" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item">
@@ -78,12 +77,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                    @else
+                                    @empty
                                     <tr>
                                         <td colspan="5">Job Applicantions not found.</td>
                                     </tr>
-                                    @endif
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

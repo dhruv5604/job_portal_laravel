@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\createJobRequest;
 use App\Models\Category;
 use App\Models\Job;
-use App\Models\JobApplication;
 use App\Models\JobType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -161,48 +160,6 @@ class JobController extends Controller
         $job->load(['jobType', 'category']);
 
         return view('front.job-details', compact('job'));
-    }
-
-    public function applyJob(Job $job)
-    {
-        $employer_id = $job->user_id;
-
-        if ($employer_id == Auth::id()) {
-            return back()->with('error', 'You cannot apply to your own job.');
-        }
-
-        $alreadyApplied = JobApplication::where([
-            'job_id' => $job->id,
-            'user_id' => Auth::id(),
-        ])->exists();
-
-        if ($alreadyApplied) {
-            return redirect()->back()->with('error', 'You have already applied to this job.');
-        }
-
-        JobApplication::create([
-            'job_id' => $job->id,
-            'user_id' => Auth::id(),
-            'employer_id' => $employer_id,
-            'applied_date' => now(),
-        ]);
-
-        return redirect()->back()->with('success', 'Job applied successfully.');
-    }
-
-    public function myJobApplications()
-    {
-        $jobApplications = JobApplication::where('user_id', Auth::id())->with('job', 'job.jobType', 'job.applications')->paginate(10);
-
-        return view('front.account.job.my-job-applications', compact('jobApplications'));
-    }
-
-    public function removeAppliedJob(JobApplication $jobApplication)
-    {
-        abort_if($jobApplication->user_id !== Auth::id(), 403);
-        $jobApplication->delete();
-
-        return redirect()->back()->with('success', 'Job removed successfully.');
     }
 
     private function authorizeOwner(Job $job)
