@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Job;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,15 @@ class EnsureJobIsActive
      */
     public function handle(Request $request, Closure $next)
     {
-        $job = $request->route('job');
+        $job = $request->route('job') ?: $request->job;
+
+        if (! ($job instanceof Job)) {
+            $job = Job::where('id', $job)->first();
+        }
 
         abort_if(! $job || $job->status !== 1, 404);
+
+        $request->attributes->set('job', $job);
 
         return $next($request);
     }
