@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfilePicRequest;
@@ -24,7 +25,6 @@ class AccountController extends Controller
         ]);
 
         return redirect()->route('account.login')->with('success', 'You have registered successfully.');
-
     }
 
     public function authenticate(LoginRequest $request)
@@ -84,5 +84,26 @@ class AccountController extends Controller
         Auth::logout();
 
         return redirect()->route('account.login');
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        $user = Auth::user();
+
+        if (! (Hash::check($old_password, $user->password))) {
+            return redirect()->back()->with('error', 'Old password is wrong.');
+        }
+
+        if ($old_password == $new_password) {
+            return redirect()->back()->with('error', 'New password cannot be same as old password.');
+        }
+
+        $user->update([
+            'password' => Hash::make($new_password),
+        ]);
+
+        return redirect()->back()->with('success', 'Password changed successfully.');
     }
 }
