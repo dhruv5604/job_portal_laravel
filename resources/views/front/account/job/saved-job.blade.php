@@ -53,7 +53,7 @@
                                             <div class="info1">{{ $savedJob->job->jobType->name }} . {{ $savedJob->job->location }}</div>
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($savedJob->job->created_at)->format('d M, Y') }}</td>
-                                        <td>0 Applications</td> <!-- TODO: Update this later -->
+                                        <td>{{ $savedJob->job->applications_count }} Applications</td>
                                         <td>
                                             <div class="job-status text-capitalize">{{ $savedJob->job->status == 1 ? 'active' : 'inactive' }}</div>
                                         </td>
@@ -63,7 +63,7 @@
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item" href="job-detail.html"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('jobDetails', $savedJob->job) }}"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
                                                     <li>
                                                         <form action="{{ route('account.saved-jobs.destroy', $savedJob) }}" method="post" style="display:inline;">
                                                             @csrf

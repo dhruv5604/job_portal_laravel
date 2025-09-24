@@ -11,7 +11,7 @@ class SavedJobController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(EnsureJobIsActive::class)->only('store', 'destroy');
+        $this->middleware(EnsureJobIsActive::class)->only('store');
     }
 
     /**
@@ -19,7 +19,12 @@ class SavedJobController extends Controller
      */
     public function index()
     {
-        $savedJobs = SavedJob::where('user_id', Auth::id())->with('job')->paginate(10);
+        $savedJobs = SavedJob::where('user_id', Auth::id())->with([
+            'job' => function ($q) {
+                $q->withCount('applications')
+                    ->with('jobType');
+            },
+        ])->paginate(10);
 
         return view('front.account.job.saved-job', compact('savedJobs'));
     }
@@ -33,9 +38,9 @@ class SavedJobController extends Controller
 
         $alreadySaved = SavedJob::where([
             'user_id' => Auth::id(),
-            'job_id' => $job->id
-            ])->first();
-        
+            'job_id' => $job->id,
+        ])->first();
+
         if ($alreadySaved) {
             return redirect()->back()->with('error', 'Job already saved');
         }
