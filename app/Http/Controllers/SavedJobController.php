@@ -31,6 +31,15 @@ class SavedJobController extends Controller
     {
         $job = $request->attributes->get('job');
 
+        $alreadySaved = SavedJob::where([
+            'user_id' => Auth::id(),
+            'job_id' => $job->id
+            ])->first();
+        
+        if ($alreadySaved) {
+            return redirect()->back()->with('error', 'Job already saved');
+        }
+
         SavedJob::create([
             'user_id' => Auth::id(),
             'job_id' => $job->id,
