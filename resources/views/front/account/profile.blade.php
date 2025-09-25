@@ -92,8 +92,8 @@
                             </div>
                             <div class="mb-4">
                                 <label for="" class="mb-2">Confirm Password*</label>
-                                <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control @error('confirm_password') is-invalid @enderror">
-                                @error('confirm_password')
+                                <input type="password" name="new_password_confirmation" placeholder="Confirm Password" class="form-control @error('new_password_confirmation') is-invalid @enderror">
+                                @error('new_password_confirmation')
                                 <p class="invalid-feedback">{{ $message }}</p>
                                 @enderror
                             </div>

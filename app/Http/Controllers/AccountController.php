@@ -88,20 +88,8 @@ class AccountController extends Controller
 
     public function changePassword(ChangePasswordRequest $request)
     {
-        $old_password = $request->old_password;
-        $new_password = $request->new_password;
-        $user = Auth::user();
-
-        if (! (Hash::check($old_password, $user->password))) {
-            return redirect()->back()->with('error', 'Old password is wrong.');
-        }
-
-        if ($old_password == $new_password) {
-            return redirect()->back()->with('error', 'New password cannot be same as old password.');
-        }
-
-        $user->update([
-            'password' => Hash::make($new_password),
+        Auth::user()->update([
+            'password' => Hash::make($request->new_password),
         ]);
 
         return redirect()->back()->with('success', 'Password changed successfully.');
