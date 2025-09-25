@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfilePicRequest;
@@ -24,7 +25,6 @@ class AccountController extends Controller
         ]);
 
         return redirect()->route('account.login')->with('success', 'You have registered successfully.');
-
     }
 
     public function authenticate(LoginRequest $request)
@@ -84,5 +84,14 @@ class AccountController extends Controller
         Auth::logout();
 
         return redirect()->route('account.login');
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        Auth::user()->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->back()->with('success', 'Password changed successfully.');
     }
 }
