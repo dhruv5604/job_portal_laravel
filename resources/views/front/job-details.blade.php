@@ -72,8 +72,9 @@
                         <div class="border-bottom"></div>
                         <div class="pt-3 text-end">
                             <a href="#" class="btn btn-secondary">Save</a>
-                            <form action="{{ route('account.applyJob', $job) }}" method="POST" class="d-inline">
+                            <form action="{{ route('account.job-applications.store') }}" method="POST" class="d-inline">
                                 @csrf
+                                <input type="hidden" name="job_id" value="{{ $job->id }}">
                                 <button type="submit" class="btn btn-primary"
                                     onclick="this.disabled=true;this.form.submit();">
                                     Apply

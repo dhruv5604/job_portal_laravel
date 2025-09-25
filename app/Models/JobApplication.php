@@ -12,4 +12,9 @@ class JobApplication extends Model
         'employer_id',
         'applied_date',
     ];
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }
