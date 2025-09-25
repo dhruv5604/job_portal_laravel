@@ -6,7 +6,6 @@ use App\Http\Requests\createJobRequest;
 use App\Mail\JobNotificationEmail;
 use App\Models\Category;
 use App\Models\Job;
-use App\Models\JobApplication;
 use App\Models\JobType;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -164,43 +163,6 @@ class JobController extends Controller
         $job->load(['jobType', 'category', 'applications']);
 
         return view('front.job-details', compact('job'));
-    }
-
-    public function applyJob(Job $job)
-    {
-        $employer_id = $job->user_id;
-
-        if ($employer_id == Auth::id()) {
-            return back()->with('error', 'You cannot apply to your own job.');
-        }
-
-        $alreadyApplied = JobApplication::where([
-            'job_id' => $job->id,
-            'user_id' => Auth::id(),
-        ])->exists();
-
-        if ($alreadyApplied) {
-            return redirect()->back()->with('error', 'You have already applied to this job.');
-        }
-
-        JobApplication::create([
-            'job_id' => $job->id,
-            'user_id' => Auth::id(),
-            'employer_id' => $employer_id,
-            'applied_date' => now(),
-        ]);
-
-        $employer = User::where('id', $employer_id)->first();
-
-        $mailData = [
-            'employer' => $employer,
-            'job' => $job,
-            'user' => Auth::user(),
-        ];
-
-        Mail::to($employer->email)->send(new JobNotificationEmail($mailData));
-
-        return redirect()->back()->with('success', 'Job applied successfully.');
     }
 
     private function authorizeOwner(Job $job)
