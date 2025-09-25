@@ -105,8 +105,8 @@
                                 <th>Email</th>
                                 <th>Applied Date</th>
                             </tr>
-                            @if ($applications->isNotEmpty())
-                            @foreach ($applications as $application)
+                            @if ($job->applications->isNotEmpty())
+                            @foreach ($job->applications as $application)
                             <tr>
                                 <td>{{ $application->user->name }}</td>
                                 <td>{{ $application->user->email }}</td>

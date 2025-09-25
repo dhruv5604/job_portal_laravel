@@ -161,11 +161,9 @@ class JobController extends Controller
 
     public function jobDetails(Job $job)
     {
-        $job->load(['jobType', 'category']);
+        $job->load(['jobType', 'category', 'applications']);
 
-        $applications = JobApplication::where('job_id', $job->id)->with('user')->get();
-
-        return view('front.job-details', compact('job', 'applications'));
+        return view('front.job-details', compact('job'));
     }
 
     public function applyJob(Job $job)
