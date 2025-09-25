@@ -15,7 +15,7 @@ class EnsureJobIsActive
      */
     public function handle(Request $request, Closure $next)
     {
-        $job = $request->route('job') ?: $request->job;
+        $job = $request->route('job') ?: $request->job_id;
 
         if (! ($job instanceof Job)) {
             $job = Job::where('id', $job)->first();

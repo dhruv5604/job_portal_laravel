@@ -73,7 +73,7 @@
                         <div class="pt-3 text-end">
                             <form action="{{ route('account.saved-jobs.store') }}" method="POST" class="d-inline">
                                 @csrf
-                                <input type="hidden" name="job" value="{{ $job->id }}">
+                                <input type="hidden" name="job_id" value="{{ $job->id }}">
                                 <button type="submit" class="btn btn-primary"
                                     onclick="this.disabled=true;this.form.submit();">
                                     Save
