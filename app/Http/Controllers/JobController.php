@@ -160,7 +160,7 @@ class JobController extends Controller
 
     public function jobDetails(Job $job)
     {
-        $job->load(['jobType', 'category']);
+        $job->load(['jobType', 'category', 'applications']);
 
         return view('front.job-details', compact('job'));
     }

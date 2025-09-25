@@ -64,7 +64,7 @@
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item" href="job-detail.html"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('jobDetails', $job) }}"> <i class="fa fa-eye" aria-hidden="true"></i> View</a></li>
                                                     <li><a class="dropdown-item" href="{{ route('account.jobs.edit', $job) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
                                                     <li>
                                                         <form action="{{ route('account.jobs.destroy', $job) }}" method="post" style="display:inline;">

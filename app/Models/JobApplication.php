@@ -13,6 +13,11 @@ class JobApplication extends Model
         'applied_date',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function job()
     {
         return $this->belongsTo(Job::class);
