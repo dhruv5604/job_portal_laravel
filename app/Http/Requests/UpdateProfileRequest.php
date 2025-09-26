@@ -22,7 +22,7 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = Auth::id();
+        $id = $this->route('user')->id;
 
         return [
             'name' => 'required|min:5|max:20',
