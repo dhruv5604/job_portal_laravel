@@ -36,7 +36,7 @@ class AdminUserController extends Controller
      */
     public function update(UpdateProfileRequest $request, User $user)
     {
-        $user->update($request->only(['name', 'email', 'designation', 'mobile']));
+        $user->update($request->validated());
 
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
