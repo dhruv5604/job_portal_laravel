@@ -28,6 +28,13 @@ class Job extends Model
         'company_name',
         'company_location',
         'company_website',
+        'isFeatured',
+        'status',
+    ];
+
+    protected $casts = [
+        'isFeatured' => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function jobType()
@@ -43,5 +50,10 @@ class Job extends Model
     public function applications()
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
