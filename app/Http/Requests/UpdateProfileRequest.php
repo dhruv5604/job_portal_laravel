@@ -22,11 +22,12 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = Auth::id();
+        $id = $this->route('user')->id;
 
         return [
             'name' => 'required|min:5|max:20',
             'email' => 'required|email|unique:users,email,'.$id,
+            'designation' => 'required|min:5',
             'mobile' => 'nullable|numeric|digits:10',
         ];
     }
