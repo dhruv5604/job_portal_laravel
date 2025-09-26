@@ -6,7 +6,6 @@ use App\Http\Requests\createJobRequest;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobType;
-use Illuminate\Http\Request;
 
 class AdminJobController extends Controller
 {
@@ -15,7 +14,7 @@ class AdminJobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::with('jobType')->withCount('applications')->paginate(10);
+        $jobs = Job::with(['jobType', 'user'])->withCount('applications')->paginate(10);
 
         return view('admin.job.index', compact('jobs'));
     }

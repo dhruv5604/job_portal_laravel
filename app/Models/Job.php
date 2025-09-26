@@ -34,7 +34,7 @@ class Job extends Model
 
     protected $casts = [
         'isFeatured' => 'boolean',
-        'status'     => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function jobType()
@@ -50,5 +50,10 @@ class Job extends Model
     public function applications()
     {
         return $this->hasMany(JobApplication::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -27,9 +27,10 @@
                                 <thead class="bg-light">
                                     <tr>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Job Created</th>
-                                        <th scope="col">Applicants</th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Created by</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -37,17 +38,16 @@
                                     @if ($jobs->isNotEmpty())
                                     @foreach ($jobs as $job)
                                     <tr class="active">
+                                        <td>{{ $job->id }}</td>
                                         <td>
                                             <div class="job-name fw-500">{{ $job->title }}</div>
-                                            <div class="info1">{{ $job->jobType->name }} . {{ $job->location }}</div>
+                                            <div class="info1">{{ $job->applications_count }} Applications</div>
                                         </td>
+                                        <td>{{ $job->user->name }}</td>
+                                        <td><div class="job-status text-capitalize">{{ $job->status == 1 ? 'active' : 'inactive' }}</div></td>
                                         <td>{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</td>
-                                        <td>{{ $job->applications_count }} Applications</td>
                                         <td>
-                                            <div class="job-status text-capitalize">{{ $job->status == 1 ? 'active' : 'inactive' }}</div>
-                                        </td>
-                                        <td>
-                                            <div class="action-dots float-end">
+                                            <div class="action-dots float-center">
                                                 <button href="#" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </button>
