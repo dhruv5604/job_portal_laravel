@@ -81,24 +81,7 @@ class JobController extends Controller
     public function update(createJobRequest $request, Job $job)
     {
         $this->authorizeOwner($job);
-        $job->update([
-            'title' => $request->title,
-            'category_id' => $request->category,
-            'job_type_id' => $request->jobType,
-            'user_id' => Auth::user()->id,
-            'vacancy' => $request->vacancy,
-            'salary' => $request->salary,
-            'location' => $request->location,
-            'description' => $request->description,
-            'benefits' => $request->benefits,
-            'responsibility' => $request->responsibility,
-            'qualifications' => $request->qualifications,
-            'keywords' => $request->keywords,
-            'experience' => $request->experience,
-            'company_name' => $request->company_name,
-            'company_location' => $request->company_location,
-            'company_website' => $request->company_website,
-        ]);
+        $job->update($request->validated());
 
         return redirect()->route('account.jobs.index')
             ->with('success', 'Job updated successfully.');

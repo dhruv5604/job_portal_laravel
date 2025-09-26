@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="col-md-6  mb-4">
                                     <label for="" class="mb-2">Category<span class="req">*</span></label>
-                                    <select name="category" id="category" class="form-control @error('category') is-invalid @enderror">
+                                    <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                                         <option value="">Select a Category</option>
                                         @if ($categories->isNotEmpty())
                                         @foreach ($categories as $category)
@@ -33,7 +33,7 @@
                                         @endforeach
                                         @endif
                                     </select>
-                                    @error('category')
+                                    @error('category_id')
                                     <p class="invalid-feedback">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="" class="mb-2">Job Nature<span class="req">*</span></label>
-                                    <select name="jobType" id="jobType" class="form-select @error('jobType') is-invalid @enderror">
+                                    <select name="job_type_id" id="job_type_id" class="form-select @error('job_type_id') is-invalid @enderror">
                                         <option value="">Select a Job Nature</option>
                                         @if ($jobTypes->isNotEmpty())
                                         @foreach ($jobTypes as $jobType)
@@ -49,7 +49,7 @@
                                         @endforeach
                                         @endif
                                     </select>
-                                    @error('jobType')
+                                    @error('job_type_id')
                                     <p class="invalid-feedback">{{ $message }}</p>
                                     @enderror
                                 </div>

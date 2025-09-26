@@ -23,8 +23,8 @@ class createJobRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5|max:200',
-            'category' => 'required',
-            'jobType' => 'required',
+            'category_id' => 'required',
+            'job_type_id' => 'required',
             'vacancy' => 'required|integer',
             'salary' => 'required|integer',
             'location' => 'required|max:50',
@@ -37,6 +37,8 @@ class createJobRequest extends FormRequest
             'company_name' => 'required|min:3|max:50',
             'company_location' => 'required|max:50',
             'company_website' => 'required',
+            'isFeatured' => 'boolean',
+            'status' => 'required|in:0,1',
         ];
     }
 }

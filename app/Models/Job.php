@@ -28,6 +28,13 @@ class Job extends Model
         'company_name',
         'company_location',
         'company_website',
+        'isFeatured',
+        'status',
+    ];
+
+    protected $casts = [
+        'isFeatured' => 'boolean',
+        'status'     => 'boolean',
     ];
 
     public function jobType()
