@@ -27,6 +27,7 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => 'required|min:5|max:20',
             'email' => 'required|email|unique:users,email,'.$id,
+            'designation' => 'required|min:5',
             'mobile' => 'nullable|numeric|digits:10',
         ];
     }
