@@ -22,4 +22,9 @@ class JobApplication extends Model
     {
         return $this->belongsTo(Job::class);
     }
+
+    public function employer()
+    {
+        return $this->belongsTo(User::class, 'employer_id');
+    }
 }
