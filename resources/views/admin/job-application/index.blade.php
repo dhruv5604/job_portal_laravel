@@ -18,7 +18,7 @@
                     <div class="card border-0 shadow mb-4 p-3">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">Users</h3>
+                                <h3 class="fs-4 mb-1">Job Applications</h3>
                             </div>
 
                         </div>
@@ -26,32 +26,29 @@
                             <table class="table ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Mobile</th>
+                                        <th scope="col">Job Title</th>
+                                        <th scope="col">User</th>
+                                        <th scope="col">Employer</th>
+                                        <th scope="col">Applied Date</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
-                                    @if ($users->isNotEmpty())
-                                    @foreach ($users as $user)
+                                    @if ($jobApplications->isNotEmpty())
+                                    @foreach ($jobApplications as $jobApplication)
                                     <tr class="active">
-                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $jobApplication->job->title }}</td>
+                                        <td>{{ $jobApplication->user->name }}</td>
+                                        <td>{{ $jobApplication->employer->name }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($jobApplication->created_at)->format('d M, Y') }}</td>
                                         <td>
-                                            <div class="job-name fw-500">{{ $user->name }}</div>
-                                        </td>
-                                        <td>{{ $user->email }}</td> <!-- TODO: Update this later -->
-                                        <td>{{ $user->mobile }}</td>
-                                        <td>
-                                            <div class="action-dots">
+                                            <div class="action-dots float-center">
                                                 <button href="#" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item" href="{{ route('admin.user.edit', $user) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
                                                     <li>
-                                                        <form action="{{ route('admin.user.destroy', $user) }}" method="post" style="display:inline;">
+                                                        <form action="{{ route('admin.job-application.destroy', $jobApplication) }}" method="post" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item">
@@ -69,7 +66,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $users->links() }}
+                        {{ $jobApplications->links() }}
                     </div>
                 </div>
             </div>
