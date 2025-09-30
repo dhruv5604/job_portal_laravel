@@ -6,7 +6,7 @@
         @include('front.layouts.nav-bar')
         <div class="row">
             <div class="col-lg-3">
-                @include('front.account.sidebar')
+                @include('admin.sidebar')
             </div>
             <div class="col-lg-9">
                 @if (Session::has('success'))

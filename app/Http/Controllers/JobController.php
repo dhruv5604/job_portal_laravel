@@ -39,24 +39,7 @@ class JobController extends Controller
      */
     public function store(createJobRequest $request)
     {
-        Job::create([
-            'title' => $request->title,
-            'category_id' => $request->category,
-            'job_type_id' => $request->jobType,
-            'user_id' => Auth::user()->id,
-            'vacancy' => $request->vacancy,
-            'salary' => $request->salary,
-            'location' => $request->location,
-            'description' => $request->description,
-            'benefits' => $request->benefits,
-            'responsibility' => $request->responsibility,
-            'qualifications' => $request->qualifications,
-            'keywords' => $request->keywords,
-            'experience' => $request->experience,
-            'company_name' => $request->company_name,
-            'company_location' => $request->company_location,
-            'company_website' => $request->company_website,
-        ]);
+        Job::create($request->validated() + ['user_id' => Auth::id()]);
 
         return redirect()->route('account.jobs.index')
             ->with('success', 'Job created successfully.');
@@ -83,7 +66,7 @@ class JobController extends Controller
         $this->authorizeOwner($job);
         $job->update($request->validated());
 
-        return redirect()->route('account.jobs.index')
+        return redirect()->back()
             ->with('success', 'Job updated successfully.');
     }
 
@@ -95,7 +78,7 @@ class JobController extends Controller
         $this->authorizeOwner($job);
         $job->delete();
 
-        return redirect()->route('account.jobs.index')
+        return redirect()->back()
             ->with('success', 'Job deleted successfully.');
     }
 
@@ -147,6 +130,6 @@ class JobController extends Controller
 
     private function authorizeOwner(Job $job)
     {
-        abort_unless($job->user_id === Auth::id(), 403);
+        abort_unless(Auth::user()->role === 'admin' || $job->user_id === Auth::id(), 403);
     }
 }

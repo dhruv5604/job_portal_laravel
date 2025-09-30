@@ -52,9 +52,9 @@
                                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item" href="{{ route('admin.job.edit', $job) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
+                                                    <li><a class="dropdown-item" href="{{ route('account.jobs.edit', $job) }}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a></li>
                                                     <li>
-                                                        <form action="{{ route('admin.job.destroy', $job) }}" method="post" style="display:inline;">
+                                                        <form action="{{ route('account.jobs.destroy', $job) }}" method="post" style="display:inline;">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item">

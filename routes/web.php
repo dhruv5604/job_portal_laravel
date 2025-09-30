@@ -46,6 +46,6 @@ Route::middleware(['auth', CheckIsAdmin::class])->prefix('admin')->name('admin.'
         'index', 'edit', 'update', 'destroy',
     ]);
     Route::resource('job', AdminJobController::class)->only([
-        'index', 'edit', 'update', 'destroy',
+        'index',
     ]);
 });
