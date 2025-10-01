@@ -6,7 +6,7 @@
     <title>Reset password Email</title>
 </head>
 <body>
-    <h1>Hello {{ $mailData['user']->name }}</h1>
+    <h1>Hello {{ $mailData['userName'] }}</h1>
 
     <p>Click below to change your password</p>
 

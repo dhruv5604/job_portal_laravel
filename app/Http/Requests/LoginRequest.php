@@ -21,10 +21,15 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'email' => 'required|email',
-            'password' => 'required',
         ];
+
+        if ($this->routeIs('account.authenticate')) {
+            $rules['password'] = 'required';
+        }
+
+        return $rules;
     }
 
     public function messages(): array

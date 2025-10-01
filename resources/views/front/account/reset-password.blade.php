@@ -21,16 +21,20 @@
                     <h1 class="h3">Reset Password</h1>
                     <form action="{{ route('account.processResetPassword') }}" method="post">
                         @csrf
-                        <input type="hidden" name="token" value="{{ $tokenString }}">
+                        <input type="hidden" name="token" value="{{ request()->route('token') }}">
                         <div class="mb-3">
                             <label for="" class="mb-2">New Password*</label>
                             <input type="password" name="new_password" id="new_password" class="form-control @error('new_password') is-invalid @enderror" placeholder="example@example.com">
-                            <x-error-message field="new_password" />
+                            @error('new_password')
+                            <p class="invalid-feedback">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-2">Confirm Password*</label>
                             <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control @error('new_password_confirmation') is-invalid @enderror" placeholder="example@example.com">
-                            <x-error-message field="new_password_confirmation" />
+                            @error('new_password_confirmation')
+                            <p class="invalid-feedback">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="justify-content-between d-flex">
                             <button class="btn btn-primary mt-2">Submit</button>
