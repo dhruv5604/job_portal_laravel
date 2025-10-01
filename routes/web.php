@@ -21,6 +21,10 @@ Route::middleware('guest')->prefix('account')->name('account.')->group(function 
     Route::post('/process-register', [AccountController::class, 'processRegistration'])->name('processRegistration');
     Route::view('/login', 'front.account.login')->name('login');
     Route::post('/authenticate', [AccountController::class, 'authenticate'])->name('authenticate');
+    Route::view('/forgot-password', view: 'front.account.forgot-password')->name('forgotPassword');
+    Route::post('/process-forgot-password', [AccountController::class, 'processForgotPassword'])->name('processForgotPassword');
+    Route::view('/reset-password/{token}', ' front.account.reset-password')->name('resetPassword');
+    Route::post('/process-reset-password', [AccountController::class, 'processResetPassword'])->name('processResetPassword');
 });
 
 // Authenticated user routes
