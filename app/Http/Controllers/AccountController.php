@@ -101,26 +101,28 @@ class AccountController extends Controller
 
     public function processForgotPassword(LoginRequest $request)
     {
-        $token = Str::random(60);
-
-        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
-
-        DB::table('password_reset_tokens')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => now(),
-        ]);
-
         $user = user::whereEmail($request->email)->first();
 
-        $mailData = [
-            'token' => $token,
-            'userName' => $user->name,
-        ];
+        if ($user) {
+            $token = Str::random(60);
 
-        Mail::to($user->email)->send(new ResetPasswordMail($mailData));
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-        return redirect()->back()->with('success', 'Password reset link sent to your email.');
+            DB::table('password_reset_tokens')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => now(),
+            ]);
+
+            $mailData = [
+                'token' => $token,
+                'userName' => $user->name,
+            ];
+
+            Mail::to($user->email)->send(new ResetPasswordMail($mailData));
+        }
+
+        return redirect()->back()->with('success', 'If Email is exists then password reset link sent to your email.');
     }
 
     public function processResetPassword(ChangePasswordRequest $request)
