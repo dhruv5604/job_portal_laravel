@@ -22,8 +22,7 @@ class ChangePasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'old_password' => 'required|current_password|different:new_password',
+        $rules = [
             'new_password' => [
                 'required',
                 Password::min(6)
@@ -35,5 +34,11 @@ class ChangePasswordRequest extends FormRequest
             ],
             'new_password_confirmation' => 'required',
         ];
+
+        if ($this->routeIs('account.changePassword')) {
+            $rules['old_password'] = 'required|current_password|different:new_password';
+        }
+
+        return $rules;
     }
 }

@@ -18,26 +18,22 @@
                 </div>
                 @endif
                 <div class="card shadow border-0 p-5">
-                    <h1 class="h3">Login</h1>
-                    <form action="{{ route('account.authenticate') }}" method="post">
+                    <h1 class="h3">Reset Password</h1>
+                    <form action="{{ route('account.processResetPassword') }}" method="post">
                         @csrf
+                        <input type="hidden" name="token" value="{{ $tokenString }}">
                         <div class="mb-3">
-                            <label for="" class="mb-2">Email*</label>
-                            <input type="text" name="email" value="{{ old('email') }}" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@example.com">
-                            @error('email')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <label for="" class="mb-2">New Password*</label>
+                            <input type="password" name="new_password" id="new_password" class="form-control @error('new_password') is-invalid @enderror" placeholder="example@example.com">
+                            <x-error-message field="new_password" />
                         </div>
                         <div class="mb-3">
-                            <label for="" class="mb-2">Password*</label>
-                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password">
-                            @error('password')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <label for="" class="mb-2">Confirm Password*</label>
+                            <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control @error('new_password_confirmation') is-invalid @enderror" placeholder="example@example.com">
+                            <x-error-message field="new_password_confirmation" />
                         </div>
                         <div class="justify-content-between d-flex">
-                            <button class="btn btn-primary mt-2">Login</button>
-                            <a href="{{ route('account.forgotPassword') }}" class="mt-3">Forgot Password?</a>
+                            <button class="btn btn-primary mt-2">Submit</button>
                         </div>
                     </form>
                 </div>
