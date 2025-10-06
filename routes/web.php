@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
-use App\Http\Controllers\AdminJobController;
 use App\Http\Controllers\AdminJobApplicationController;
+use App\Http\Controllers\AdminJobController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
