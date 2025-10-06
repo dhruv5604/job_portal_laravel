@@ -9,4 +9,9 @@ class Category extends Model
 {
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'category_id', 'id');
+    }
 }
