@@ -10,10 +10,10 @@
                 <a href="{{ route('admin.job.index') }}">Jobs</a>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <a href="#">Job Applications</a>
+                <a href="{{ route('admin.job-application.index') }}">Job Applications</a>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <a href="#">Logout</a>
+                <a href="{{ route('account.logout') }}">Logout</a>
             </li>
         </ul>
     </div>

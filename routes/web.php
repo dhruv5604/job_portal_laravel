@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminJobController;
+use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobApplicationController;
@@ -21,6 +22,10 @@ Route::middleware('guest')->prefix('account')->name('account.')->group(function 
     Route::post('/process-register', [AccountController::class, 'processRegistration'])->name('processRegistration');
     Route::view('/login', 'front.account.login')->name('login');
     Route::post('/authenticate', [AccountController::class, 'authenticate'])->name('authenticate');
+    Route::view('/forgot-password', view: 'front.account.forgot-password')->name('forgotPassword');
+    Route::post('/process-forgot-password', [AccountController::class, 'processForgotPassword'])->name('processForgotPassword');
+    Route::view('/reset-password/{token}', ' front.account.reset-password')->name('resetPassword');
+    Route::post('/process-reset-password', [AccountController::class, 'processResetPassword'])->name('processResetPassword');
 });
 
 // Authenticated user routes
@@ -47,5 +52,7 @@ Route::middleware(['auth', CheckIsAdmin::class])->prefix('admin')->name('admin.'
     ]);
     Route::resource('job', AdminJobController::class)->only([
         'index',
+    Route::resource('job-application', AdminJobApplicationController::class)->only([
+        'index', 'destroy',
     ]);
 });
