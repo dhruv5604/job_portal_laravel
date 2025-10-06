@@ -24,16 +24,12 @@
                         <div class="mb-3">
                             <label for="" class="mb-2">Email*</label>
                             <input type="text" name="email" value="{{ old('email') }}" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="example@example.com">
-                            @error('email')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="email" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-2">Password*</label>
                             <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter Password">
-                            @error('password')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="password" />
                         </div>
                         <div class="justify-content-between d-flex">
                             <button class="btn btn-primary mt-2">Login</button>

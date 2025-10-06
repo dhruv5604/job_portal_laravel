@@ -7,7 +7,7 @@
                 <a href="{{ route('admin.user.index') }}">Users</a>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <a href="#">Jobs</a>
+                <a href="{{ route('admin.job.index') }}">Jobs</a>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <a href="{{ route('admin.job-application.index') }}">Job Applications</a>

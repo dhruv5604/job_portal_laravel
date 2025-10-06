@@ -36,8 +36,9 @@
 				@else
 					@if (Auth::user()->role == 'admin')
 						<a class="btn btn-outline-primary me-2" href="{{ route('admin.dashboard') }}" type="submit">Admin</a>
+					@else
+						<a class="btn btn-outline-primary me-2" href="{{ route('account.profile') }}" type="submit">Account</a>
 					@endif
-					<a class="btn btn-outline-primary me-2" href="{{ route('account.profile') }}" type="submit">Account</a>
 				@endif
 				<a class="btn btn-primary" href="{{ route('account.jobs.create') }}" type="submit">Post a Job</a>
 			</div>

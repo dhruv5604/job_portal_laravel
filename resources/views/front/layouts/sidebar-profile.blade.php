@@ -28,9 +28,7 @@
                     <div class="mb-3">
                         <label for="image" class="form-label">Profile Image</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
-                        @error('image')
-                        <p class="invalid-feedback">{{ $message }}</p>
-                        @enderror
+                        <x-error-message field="image" />
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary mx-3">Update</button>

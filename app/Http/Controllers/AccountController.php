@@ -34,6 +34,10 @@ class AccountController extends Controller
     public function authenticate(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
             return redirect()->route('account.profile');
         }
 

@@ -21,7 +21,7 @@ class EnsureJobIsActive
             $job = Job::where('id', $job)->first();
         }
 
-        abort_if(! $job || $job->status !== 1, 404);
+        abort_if(! $job || $job->status !== true, 404);
 
         $request->attributes->set('job', $job);
 

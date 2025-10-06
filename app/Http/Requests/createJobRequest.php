@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class createJobRequest extends FormRequest
 {
@@ -21,10 +22,10 @@ class createJobRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required|min:5|max:200',
-            'category' => 'required',
-            'jobType' => 'required',
+            'category_id' => 'required',
+            'job_type_id' => 'required',
             'vacancy' => 'required|integer',
             'salary' => 'required|integer',
             'location' => 'required|max:50',
@@ -38,5 +39,12 @@ class createJobRequest extends FormRequest
             'company_location' => 'required|max:50',
             'company_website' => 'required',
         ];
+
+        if (Auth::user()->role == 'admin') {
+            $rules['isFeatured'] = 'boolean';
+            $rules['status'] = 'required|in:0,1';
+        }
+
+        return $rules;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminJobController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\HomeController;
@@ -49,6 +50,8 @@ Route::middleware(['auth', CheckIsAdmin::class])->prefix('admin')->name('admin.'
     Route::resource('user', AdminUserController::class)->only([
         'index', 'edit', 'update', 'destroy',
     ]);
+    Route::resource('job', AdminJobController::class)->only([
+        'index',
     Route::resource('job-application', AdminJobApplicationController::class)->only([
         'index', 'destroy',
     ]);

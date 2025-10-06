@@ -15,36 +15,28 @@
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
                                 placeholder="Enter Name" value="{{ old('name') }}">
-                            @error('name')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="name" />
                         </div>
                         <div class="mb-3">
                             <label class="mb-2">Email*</label>
                             <input type="text" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
                                 placeholder="Enter Email" value="{{ old('email') }}">
-                            @error('email')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="email" />
                         </div>
                         <div class="mb-3">
                             <label class="mb-2">Password*</label>
                             <input type="password" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror"
                                 placeholder="Enter Password">
-                            @error('password')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="password" />
                         </div>
                         <div class="mb-3">
                             <label class="mb-2">Confirm Password*</label>
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 class="form-control @error('password_confirmation') is-invalid @enderror"
                                 placeholder="Enter Confirm Password">
-                            @error('password_confirmation')
-                            <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
+                            <x-error-message field="password_confirmation" />
                         </div>
                         <button class="btn btn-primary mt-2">Register</button>
                     </form>
