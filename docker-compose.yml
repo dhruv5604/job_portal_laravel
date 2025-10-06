@@ -19,9 +19,9 @@ services:
       - APP_DEBUG=true
       - APP_KEY=${APP_KEY:-}
       - DB_HOST=db
-      - DB_DATABASE=${DB_DATABASE:-job_portal_laravel}
-      - DB_USERNAME=${DB_USERNAME:-root}
-      - DB_PASSWORD=${DB_PASSWORD:-YourStrongPass123!}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
       - CACHE_DRIVER=redis
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
@@ -50,10 +50,10 @@ services:
     container_name: job_portal_db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: YourStrongPass123!
-      MYSQL_DATABASE: job_portal_laravel
-      MYSQL_USER: jobuser
-      MYSQL_PASSWORD: YourStrongPass123!
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
       TZ: "UTC"
     volumes:
       - dbdata:/var/lib/mysql
